@@ -1,6 +1,13 @@
 # donatingstuff
 _INFO:_
-A simple SPA web page using vue and bootstrap for practice and learning some UI/UX 
+A simple SPA web page using vue and BootstrapVue for practice and learning some UI/UX 
+
+_TODO:_
+* Create a simple UI using Figma
+* Configure the BootstrapVue https://bootstrap-vue.org/
+* Create the landing page
+
+
 
 
 ### Default from Vue create:
