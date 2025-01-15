@@ -1,5 +1,10 @@
 # donatingstuff
+##info
+A simple SPA web page using vue and bootstrap for practice and learning some UI/UX 
 
+
+### Default from Vue create:
+```
 ## Project setup
 ```
 npm install
@@ -22,3 +27,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+```
