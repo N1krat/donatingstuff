@@ -1,6 +1,6 @@
 # donatingstuff
 _INFO:_
-A simple SPA web page using vue and BootstrapVue for practice and learning some UI/UX ☕
+A simple web page using vue and Bootstrap-Vue for practice and learning some UI/UX ☕
 
 _TODO:_
 * Create a simple UI using Figma ✅
