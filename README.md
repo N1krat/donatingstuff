@@ -6,7 +6,7 @@ _TODO:_
 * Create a simple UI using Figma
 * Configure the BootstrapVue https://bootstrap-vue.org/
 * Create the landing page
-
+* Create a file structure
 
 
 
