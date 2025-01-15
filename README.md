@@ -1,5 +1,5 @@
 # donatingstuff
-##info
+_INFO:_
 A simple SPA web page using vue and bootstrap for practice and learning some UI/UX 
 
 
