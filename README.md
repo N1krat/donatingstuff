@@ -2,6 +2,10 @@
 _INFO:_
 A simple web page using vue and Bootstrap-Vue for practice and learning some UI/UX ☕
 
+_Problems_!:
+* I hate now npm 
+* Cant make the bootstrap work because of the vulnerabilities that npm detects and npm audit desbt work
+
 _TODO:_
 * Create a simple UI using Figma ✅
 * Configure the BootstrapVue https://bootstrap-vue.org/ ⚒️
