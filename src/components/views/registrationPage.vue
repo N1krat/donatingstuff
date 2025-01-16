@@ -1,6 +1,5 @@
 <template> 
-    <div class="container"> 
-        
+    <div class="container-fluid" id="con"> 
         <h1>Registration Page</h1>
         <img :src="require('@/assets/loli.png')" />
     </div>
@@ -14,14 +13,10 @@ export default {
 </script>   
 
 <style scoped> 
-    .registrationPage {
-        background-color: #f5f5f5;
-    }
-    
-    .container { 
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-self: center;
-    }
+#con { 
+    background-color: #9bb186;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 </style>
