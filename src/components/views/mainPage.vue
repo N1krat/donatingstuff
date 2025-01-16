@@ -3,7 +3,7 @@
   <div class="container-fluid" id="con">
 
     <h1>Velcome to DonatingStuff!</h1>
-    <h3>Made by Def4lt</h3>
+    <h3>Made by me</h3>
     <img :src="require('@/assets/loli.png')" /> 
   </div>
 
