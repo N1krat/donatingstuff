@@ -1,27 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/loli.png">
-  <mainPage msg="Vuelcom to DonatingStuff"/>
+  <div class="con">
+  <p>
+    <strong>Current route path:</strong> {{ $route.fullPath }}
+  </p>
+  <nav class="nav">
+    <RouterLink to="/">HomePage</RouterLink>
+    <RouterLink to="/registration">RegistrationPage</RouterLink>
+  </nav>
+  </div>
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <script>
-import mainPage from './components/mainPage.vue'
-
 export default {
   name: 'App',
-  components: {
-    mainPage
-  }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  
+<style scoped>
+.nav { 
+  gap: 20px;
+  margin: 15px;
 }
 </style>
