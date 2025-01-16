@@ -1,9 +1,10 @@
 <template>
   
-  <div class="hello">
-    <img alt="Vue logo" src="src\assets\loli.png">
-    <h1>Velcome to DontainStuff!</h1>
-    <h3>Made by Deflt</h3>
+  <div class="container-fluid" id="con">
+
+    <h1>Velcome to DonatingStuff!</h1>
+    <h3>Made by Def4lt</h3>
+    <img :src="require('@/assets/loli.png')" /> 
   </div>
 
 </template>
@@ -39,6 +40,13 @@ a {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  
+
+}
+
+#con { 
+  background-color: #9bb186;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 </style>

@@ -1,7 +1,8 @@
 <template> 
     <div class="container"> 
-        <img src="src/assets/loli.png">
+        
         <h1>Registration Page</h1>
+        <img :src="require('@/assets/loli.png')" />
     </div>
 </template>
 
@@ -12,7 +13,7 @@ export default {
 }
 </script>   
 
-<style> 
+<style scoped> 
     .registrationPage {
         background-color: #f5f5f5;
     }

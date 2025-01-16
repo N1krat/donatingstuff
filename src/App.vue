@@ -1,11 +1,13 @@
 <template>
-   <p>
+  <div class="con">
+  <p>
     <strong>Current route path:</strong> {{ $route.fullPath }}
   </p>
-  <nav>
+  <nav class="nav">
     <RouterLink to="/">HomePage</RouterLink>
     <RouterLink to="/registration">RegistrationPage</RouterLink>
   </nav>
+  </div>
   <main>
     <RouterView />
   </main>
@@ -17,6 +19,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.nav { 
+  gap: 20px;
+  margin: 15px;
+}
 </style>
