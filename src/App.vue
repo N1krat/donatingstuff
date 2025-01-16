@@ -1,15 +1,15 @@
 <template>
   <img alt="Vue logo" src="./assets/loli.png">
-  <HelloWorld msg="Vuelcom to DonatingStuff"/>
+  <mainPage msg="Vuelcom to DonatingStuff"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import mainPage from './components/mainPage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    mainPage
   }
 }
 </script>
