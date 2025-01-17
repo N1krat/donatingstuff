@@ -7,6 +7,8 @@ _TODO:_
 * Create the landing page ⚒️
 * Create a file structure ✅
 * Integrate the vue-router https://router.vuejs.org/ ✅
+* Develop the registration page 🔨
+* Make a dashboard with some functionality 🔨
 
 
 ### Default from Vue create:
