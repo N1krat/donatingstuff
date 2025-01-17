@@ -6,7 +6,7 @@ _TODO:_
 * Create a simple UI using Figma ✅
 * Create the landing page ⚒️
 * Create a file structure ✅
-* Create and integrate the vue-router https://router.vuejs.org/ ⚒️
+* Integrate the vue-router https://router.vuejs.org/ ✅
 
 
 ### Default from Vue create:
