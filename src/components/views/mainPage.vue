@@ -30,14 +30,74 @@
         <div class="text">
         <h3 class="card-title">Card title</h3>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <router-link to="/registration" class="btn btn-primary">Get Started</router-link>
-          <router-link href="#" class="btn btn-secondary">Go somewhere</router-link>
+          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
+          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
+        </div>
+      </div>
+       <div class="card-image">
+             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+        </div>
+    </div>
+
+    <div class="cards" id="card2">
+      <div class="card-image">
+             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+        </div>
+      <div class="card-content">
+        
+        <div class="text">
+        <h3 class="card-title">Card title</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" id="card3">
+      <div class="card-content">
+        <div class="text">
+        <h3 class="card-title">Card title</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
+          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
         </div>
       </div>
        <div class="card-image">
              <img src="https://placehold.co/400x300" class="card-img-top" alt="...">
         </div>
     </div>
+
+    <div class="cards" id="card4">
+      <div class="card-content">
+        <div class="text">
+        <h3 class="card-title">Card title</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
+          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
+        </div>
+      </div>
+       <div class="card-image">
+             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+        </div>
+    </div>
+
+    <div class="cards" id="card5">
+      <div class="card-content">
+        <div class="text">
+        <h3 class="card-title">Card title</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          
+        </div>
+      </div>
+       <div class="card-image">
+             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+        </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <h4>Footer</h4>
   </div>
 </template>
 
@@ -104,10 +164,12 @@ a:hover {
   box-shadow: #2c3e50;
   color: black;
   background-color: rgb(190, 190, 190); 
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
 }
 
 /* card css */
-#card1 { 
+.cards { 
   background-color: #56638A;
   margin: 20px;
   padding: 20px;
@@ -124,11 +186,27 @@ a:hover {
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
   gap: 40px;
-  
-
-  
+  padding-left: 50px;
 } 
 
+#card2 { 
+  padding-right: 50px;
+  
+}
 
+#card3 { 
+  
+}
+
+.footer { 
+  background-color: #2c3e50;
+  margin: 0px; 
+  padding: 0px; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
 </style>
+
 
