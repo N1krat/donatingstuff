@@ -24,24 +24,27 @@
 
 
   <!-- main page -->
-  <div class="container-fluid" id="con"> 
-    <div class="cards" id="card1">
-      <div class="card-content">
-        <div class="text">
-        <h3 class="card-title">Card title</h3>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
-          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
-        </div>
+  <!-- Card1 -->
+  <div class="container-fluid" id="con">
+    <div class="card text-white position-relative">
+    <!-- Image -->
+    <img src="https://placehold.co/700x300" class="card-img" alt="...">
+    
+    <!-- Overlay Content -->
+    <div class="card-img-overlay d-flex flex-column justify-content-center m-5" style="color: black; width: 30%; right: 0;">
+      <h1 class="card-title display-3 fw-bold">Card title</h1>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <div>
+        <router-link to="/registration" class="btn btn-primary me-3">Get Started</router-link>
+        <router-link href="#" class="btn btn-secondary">Go somewhere</router-link>
       </div>
-       <div class="card-image">
-             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
-        </div>
     </div>
+  </div>
 
+    <!-- Card2 -->
     <div class="cards" id="card2">
       <div class="card-image">
-             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+             <img src="https://placehold.co/700x400" class="card-img-top" alt="...">
         </div>
       <div class="card-content">
         
@@ -53,6 +56,7 @@
       </div>
     </div>
 
+    <!-- Card3 -->
     <div class="cards" id="card3">
       <div class="card-content">
         <div class="text">
@@ -67,21 +71,8 @@
         </div>
     </div>
 
+    <!-- Card4 -->
     <div class="cards" id="card4">
-      <div class="card-content">
-        <div class="text">
-        <h3 class="card-title">Card title</h3>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
-          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
-        </div>
-      </div>
-       <div class="card-image">
-             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
-        </div>
-    </div>
-
-    <div class="cards" id="card5">
       <div class="card-content">
         <div class="text">
         <h3 class="card-title">Card title</h3>
@@ -90,8 +81,23 @@
         </div>
       </div>
        <div class="card-image">
-             <img src="https://placehold.co/700x300" class="card-img-top" alt="...">
+             <img src="https://placehold.co/700x400" class="card-img-top" alt="...">
         </div>
+    </div>
+
+    <!-- Card5 -->
+    <div class="cards" id="card5">
+      <div class="card-image">
+             <img src="https://placehold.co/700x400" class="card-img-top" alt="...">
+        </div>
+      <div class="card-content">
+        
+        <div class="text">
+        <h3 class="card-title">Card title</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          
+        </div>
+      </div>
     </div>
 
   </div>
@@ -185,16 +191,19 @@ a:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
-  gap: 40px;
+  gap: 20px;
   padding-left: 50px;
 } 
 
-#card2 { 
-  padding-right: 50px;
-  
+#card1Text { 
+  display: flex;
+  position: relative;
 }
 
-#card3 { 
+
+
+#card2 { 
+  padding-right: 50px;
   
 }
 
