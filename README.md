@@ -10,6 +10,7 @@ _TODO:_
 * Create the registration page ⚒️
 * Create the dashboard page ⚒️
 * Create the donation page ⚒️
+* Create the about page ⚒️
 
 
 

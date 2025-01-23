@@ -24,9 +24,10 @@
 
 
   <!-- main page -->
-  <!-- Card1 -->
+  
   <div class="container-fluid" id="con">
-    <div class="card text-white position-relative">
+    <!-- Card1 -->
+    <div class="card text-white position-relative" id="card1">
     <!-- Image -->
     <img src="https://placehold.co/700x300" class="card-img" alt="...">
     
@@ -36,7 +37,7 @@
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       <div>
         <router-link to="/registration" class="btn btn-primary me-3">Get Started</router-link>
-        <router-link href="#" class="btn btn-secondary">Go somewhere</router-link>
+        <a href="#card4" class="btn btn-secondary">How it works</a>
       </div>
     </div>
   </div>
@@ -56,23 +57,8 @@
       </div>
     </div>
 
-    <!-- Card3 -->
-    <div class="cards" id="card3">
-      <div class="card-content">
-        <div class="text">
-        <h3 class="card-title">Card title</h3>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <button class="btn"><router-link to="/registration" class="btn btn-primary">Get Started</router-link></button>
-          <button class="btn"><router-link href="#" class="btn btn-secondary">Go somewhere</router-link></button>
-        </div>
-      </div>
-       <div class="card-image">
-             <img src="https://placehold.co/400x300" class="card-img-top" alt="...">
-        </div>
-    </div>
-
-    <!-- Card4 -->
-    <div class="cards" id="card4">
+<!-- Card3 -->
+  <div class="cards" id="card3">
       <div class="card-content">
         <div class="text">
         <h3 class="card-title">Card title</h3>
@@ -84,6 +70,55 @@
              <img src="https://placehold.co/700x400" class="card-img-top" alt="...">
         </div>
     </div>
+
+    <!-- Card4 -->
+    <div class="container text-center mt-4" id="card4">
+  <h1 class="mb-3 text-light">How It Works</h1>
+  <p class="text-light">Take a look at service's basic features.</p>
+
+  <!-- Feature buttons -->
+  <div class="d-flex justify-content-center mb-4">
+      <button
+        v-for="section in sections"
+        :key="section.id"
+        :class="['btn', section.id === currentSection ? 'btn-dark text-light' : 'btn-outline-light']"
+        @click="currentSection = section.id"
+        class="me-2"
+      >
+        {{ section.label }}
+      </button>
+    </div>
+ 
+  <!-- Card section -->
+  <div class="row align-items-center g-5" id="card-section">
+      <!-- Card Image -->
+      <div class="col-md-4">
+        <div class="card bg-dark text-center text-light border-0">
+          <img
+            :src="currentCardData.image"
+            class="card-img-top rounded-circle mx-auto mt-3"
+            alt="Feature Image"
+            style="width: 100px;"
+          />
+          <div class="card-body">
+            <h5 class="card-title text-warning">{{ currentCardData.title }}</h5>
+            <p class="card-text text-secondary">{{ currentCardData.text }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- Description Section -->
+      <div class="col-md-8 text-start text-light">
+        <h3>{{ currentCardData.descriptionTitle }}</h3>
+        <p class="text-white">
+          {{ currentCardData.descriptionText }}
+        </p>
+        <button class="btn btn-primary fw-bold"><router-link to="/registration">Try Now</router-link></button>
+      </div>
+    </div>
+    </div>
+
+
+    
 
     <!-- Card5 -->
     <div class="cards" id="card5">
@@ -100,6 +135,9 @@
       </div>
     </div>
 
+
+    
+    
   </div>
 
   <div class="footer">
@@ -109,8 +147,73 @@
 
 <script>
 export default {
-  name: 'mainPage',
-}
+  name: "mainPage",
+  data() {
+    return {
+      currentSection: "donations", // Default section
+      sections: [
+        { id: "donations", label: "DONATIONS" },
+        { id: "subscriptions", label: "SUBSCRIPTIONS" },
+        { id: "goals", label: "DONATION GOALS" },
+        { id: "poll", label: "POLL" },
+        { id: "media", label: "MEDIA" },
+      ],
+      cardData: {
+        donations: {
+          image: require("@/assets/loli.png"),
+          title: "John Doe - $15",
+          text: "Thanks for streaming!",
+          descriptionTitle: "Receive Donations",
+          descriptionText:
+            "Receive donations from viewers and display them on your live broadcast. Customize the appearance of alerts by adjusting many available settings.",
+        },
+        subscriptions: {
+          image: require("@/assets/loli.png"), 
+          title: "Subscription Tier 1",
+          text: "Thank you for subscribing!",
+          descriptionTitle: "Gain Subscriptions",
+          descriptionText:
+            "Encourage viewers to subscribe and enjoy exclusive benefits while supporting your content creation journey.",
+        },
+        goals: {
+          image: require("@/assets/loli.png"),
+          title: "Donation Goal Reached!",
+          text: "Congratulations on reaching your goal!",
+          descriptionTitle: "Set Donation Goals",
+          descriptionText:
+            "Set goals for your stream and motivate viewers to contribute. Watch as the progress bar fills!",
+        },
+        poll: {
+          image: require("@/assets/loli.png"),
+          title: "Interactive Poll",
+          text: "Engage your audience with live polls!",
+          descriptionTitle: "Create Live Polls",
+          descriptionText:
+            "Create interactive polls and let your audience vote in real-time. Make your streams fun and engaging.",
+        },
+        media: {
+          image: require("@/assets/loli.png"), 
+          title: "Media Integration",
+          text: "Share your media seamlessly.",
+          descriptionTitle: "Integrate Media",
+          descriptionText:
+            "Display media directly on your stream, including videos, images, and more, for better engagement.",
+        },
+      },
+    };
+  },
+  computed: {
+    currentCardData() {
+      return this.cardData[this.currentSection] || {
+        image: "",
+        title: "",
+        text: "",
+        descriptionTitle: "",
+        descriptionText: "",
+      };
+    },
+  }, 
+};
 
 </script>
 
@@ -127,9 +230,9 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: white;
+  text-decoration: none;
 }
-
 .body { 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -157,8 +260,7 @@ a {
 #navbarNav {
   justify-content: flex-end;
 }
-
-a { 
+.nav-link { 
   text-decoration: none; 
   padding: 5px;
   color: white; 
@@ -166,13 +268,24 @@ a {
   
 }
 
-a:hover { 
+.nav-link:hover { 
   box-shadow: #2c3e50;
   color: black;
   background-color: rgb(190, 190, 190); 
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;
 }
+
+.chooser { 
+  box-shadow: #2c3e50;
+  color: black;
+  background-color: rgb(190, 190, 190); 
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+
+}
+
+
 
 /* card css */
 .cards { 
@@ -195,12 +308,25 @@ a:hover {
   padding-left: 50px;
 } 
 
+#card1 { 
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+
 #card1Text { 
   display: flex;
   position: relative;
 }
 
+#card4 { 
+  background-color: #56638A; 
+  margin-left: 50px;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
 
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+}
 
 #card2 { 
   padding-right: 50px;
