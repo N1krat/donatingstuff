@@ -77,17 +77,17 @@
   <p class="text-light">Take a look at service's basic features.</p>
 
   <!-- Feature buttons -->
-  <div class="d-flex justify-content-center mb-4">
-      <button
-        v-for="section in sections"
-        :key="section.id"
-        :class="['btn', section.id === currentSection ? 'btn-dark text-light' : 'btn-outline-light']"
-        @click="currentSection = section.id"
-        class="me-2"
-      >
-        {{ section.label }}
-      </button>
-    </div>
+ <div class="d-flex justify-content-center mb-4">
+  <button
+    v-for="section in sections"
+    :key="section.id"
+    :class="['btn', section.id === currentSection ? 'btn-dark text-light' : 'btn-outline-light']"
+    @click="currentSection = section.id"
+    class="me-2 d-flex align-items-center"
+  >
+    {{ section.label }}
+  </button>
+</div>
  
   <!-- Card section -->
   <div class="row align-items-center g-5" id="card-section">
