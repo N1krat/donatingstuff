@@ -29,17 +29,18 @@
     <!-- Card1 -->
     <div class="card text-white position-relative" id="card1">
     <!-- Image -->
-    <img src="https://placehold.co/700x300" class="card-img" alt="...">
+    <img src="https://placehold.co/700x300" id="card1-img" class="card-img" alt="...">
     
     <!-- Overlay Content -->
-    <div class="card-img-overlay d-flex flex-column justify-content-center m-5" style="color: black; width: 30%; right: 0;">
-      <h1 class="card-title display-3 fw-bold">Card title</h1>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <div>
-        <router-link to="/registration" class="btn btn-primary me-3">Get Started</router-link>
-        <a href="#card4" class="btn btn-secondary">How it works</a>
-      </div>
-    </div>
+    <div class="card-img-overlay d-flex flex-column m-3 mt-5">
+      <h1 class="card-title display-3 fw-bold">Card title</h1> 
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+      
+      <div> 
+        <router-link to="/registration" class="btn btn-primary me-3">Get Started</router-link> 
+        <a href="#card4" class="btn btn-secondary" id="how">How it works</a>
+      </div> 
+    </div> 
   </div>
 
     <!-- Card2 -->
@@ -77,17 +78,17 @@
   <p class="text-light">Take a look at service's basic features.</p>
 
   <!-- Feature buttons -->
-  <div class="d-flex justify-content-center mb-4">
-      <button
-        v-for="section in sections"
-        :key="section.id"
-        :class="['btn', section.id === currentSection ? 'btn-dark text-light' : 'btn-outline-light']"
-        @click="currentSection = section.id"
-        class="me-2"
-      >
-        {{ section.label }}
-      </button>
-    </div>
+ <div class="d-flex justify-content-center mb-4">
+  <button
+    v-for="section in sections"
+    :key="section.id"
+    :class="['btn', section.id === currentSection ? 'btn-dark text-light' : 'btn-outline-light']"
+    @click="currentSection = section.id"
+    class="me-2 d-flex align-items-center"
+  >
+    {{ section.label }}
+  </button>
+</div>
  
   <!-- Card section -->
   <div class="row align-items-center g-5" id="card-section">
@@ -262,7 +263,7 @@ a {
 }
 .nav-link { 
   text-decoration: none; 
-  padding: 5px;
+
   color: white; 
   padding: 10px; 
   
@@ -312,6 +313,11 @@ a {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
 }
 
+.card-img-overlay { 
+  color: black;
+  width: 30%;
+}
+
 #card1Text { 
   display: flex;
   position: relative;
@@ -342,6 +348,80 @@ a {
   align-items: center;
   color: white;
 }
+
+@media only screen and (max-width: 600px) {
+  #navbar { 
+    background-color: #56638A;
+    margin: 0px;
+    padding: 10px;
+    color: white;
+    padding-bottom: 10px;
+    padding-top: 3px;
+
+  }
+
+  #con {
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  .cards {
+    flex-direction: column-reverse;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 5px;
+    margin-top: 20px;
+  }
+
+  #how { 
+    display: none;
+  }
+
+  .card-text, .card-title {
+    font-size: 1rem;
+  }
+
+
+ .card-img-overlay {
+  position: static;
+  width: 85%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+}
+
+
+#card1 .card-title {
+  font-size: 1.2rem;
+}
+
+#card1 .card-text {
+  font-size: 0.9rem;
+} 
+
+#card1 .btn {
+  font-size: 0.9rem;
+  padding: 15px 20px;
+  border-radius: 20px;
+}
+
+
+  #card2 { 
+    padding-right: 20px;
+  }
+
+  #card4 { 
+    display: none;
+  }
+
+  #card5 { 
+    margin-bottom: 20px;
+  }
+}
+
+
+
+
 </style>
 
 
