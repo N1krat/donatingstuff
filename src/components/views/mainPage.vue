@@ -149,6 +149,8 @@
 <script>
 export default {
   name: "mainPage",
+
+
   data() {
     return {
       currentSection: "donations", // Default section
@@ -214,6 +216,9 @@ export default {
       };
     },
   }, 
+
+  
+    
 };
 
 </script>
