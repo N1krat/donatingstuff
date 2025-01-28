@@ -2,7 +2,7 @@
 <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
   <div class="container-fluid" id="navbar">
-    <router-link class="navbar-brand" to="/">
+    <router-link class="navbar-brand" to="/" style="color: white;">
       <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
       Navbar
     </router-link>
@@ -20,12 +20,23 @@
 </nav>
 
 <!-- main page -->
-<div class="container-fluid mt-5" id="con">  
+<div class="container mx-5 mx-auto" id="con">  
     <div class="img"> 
-        aasfaf
+        <img :src="require('@/assets/loli.png')">
     </div>
     <div class="forms"> 
-        asfafa
+        <h3>Registration</h3>
+        <form>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+        </form>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>
 
@@ -62,6 +73,12 @@ export default {
 #navbarNav {
   justify-content: flex-end;
 }
+
+.navbar-brand:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
 .nav-link { 
   text-decoration: none; 
 
@@ -81,19 +98,27 @@ export default {
 
 #con { 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  width: 100%;
-
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  gap: 20px;
+  padding-left: 150px;
+  padding-right: 150px;
+  margin-top: 20px;
+  
 }
 
 .forms { 
     display: flex;
     flex-direction: column;
-    background-color: #56638A
+    background-color: #56638A; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+    gap: 15px;
 }
 
 </style>
