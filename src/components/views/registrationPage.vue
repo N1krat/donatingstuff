@@ -1,6 +1,6 @@
 <template> 
 <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
   <div class="container-fluid" id="navbar">
     <router-link class="navbar-brand" to="/" style="color: white;">
       <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -26,17 +26,44 @@
     </div>
     <div class="forms"> 
         <h3>Registration</h3>
-        <form>
+        <form class="needs-validation" novalidate>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+            <input type="email" class="form-control" id="validationCustom01" placeholder="n1krat" required>
+            <label for="floatingInput">Username</label>
+            <div class="invalid-feedback">
+              You must enter data before submitting.    
+            </div>
           </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="validationCustom02" placeholder="name@example.com" required>
+            <label for="floatingInput">Email address</label>
+            <div class="invalid-feedback">
+              You must enter data before submitting.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="validationCustom03" placeholder="Password" required>
             <label for="floatingPassword">Password</label>
+            <div class="invalid-feedback">
+                You must enter data before submitting.
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
     </div>
 </div>
 
@@ -45,8 +72,25 @@
 <script>
 export default {
     name: 'registrationPage',
-
+    mounted() {
+      (() => {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+          form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+      })()
+    }
 }
+
 </script>   
 
 <style scoped> 
