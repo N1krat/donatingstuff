@@ -20,10 +20,19 @@
 </nav>
 
 <!-- main page -->
-    <div class="container-fluid" id="con"> 
-        <h1>Dashboard</h1>
-        <img :src="require('@/assets/loli.png')" />
-    </div>
+
+<div class="container-fluid" id="con">
+  <div class="d-flex flex-column" style="position: fixed; left: 0; top: 50px; bottom: 0; width: 100px; background-color: #56638A; padding: 10px;">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <router-link class="nav-link text-light" to="/dashboard">Dashboard</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link text-light" to="/registration">Registration</router-link>
+      </li>
+    </ul>
+  </div>
+</div>
 </template> 
 
 <script>
