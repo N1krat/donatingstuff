@@ -1,6 +1,6 @@
 <template> 
 <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
   <div class="container-fluid" id="navbar">
     <router-link class="navbar-brand" to="/" style="color: white;">
       <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -22,32 +22,127 @@
 <!-- main page -->
 <div class="container mx-5 mx-auto" id="con">  
     <div class="img"> 
-        <img :src="require('@/assets/loli.png')">
+      <img :src="require('@/assets/loli.png')" />
     </div>
     <div class="forms"> 
-        <h3>Registration</h3>
-        <form>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+      <h3>Registration</h3>
+      <form @submit.prevent="registerUser" class="needs-validation" novalidate>
+        <div class="form-floating mb-3">
+          <input type="text" v-model="username" class="form-control" id="validationCustom01" placeholder="n1krat" required>
+          <label for="floatingInput">Username</label>
+          <div class="invalid-feedback">You must enter data before submitting.</div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" v-model="email" class="form-control" id="validationCustom02" placeholder="name@example.com" required>
+          <label for="floatingInput">Email address</label>
+          <div class="invalid-feedback">You must enter data before submitting.</div>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" v-model="password" class="form-control" id="validationCustom03" placeholder="Password" required>
+          <label for="floatingPassword">Password</label>
+          <div class="invalid-feedback">You must enter data before submitting.</div>
+        </div>
+        <div class="col-12" style="color: white">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" v-model="agreeTerms" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
+            <div class="invalid-feedback">You must agree before submitting.</div>
           </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Submit</button>
+        </div>
+  
+      </form>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p v-if="message">{{ message }}</p>
+            </div>
+            <div class="modal-footer">
+              <router-link to="/dashboard" class="btn btn-primary" data-bs-dismiss="modal" @click="$router.push('/dashboard')">Go to Dashboard</router-link>
+            </div>
           </div>
-        </form>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    <!-- 
+      //     clearForm() {
+    //       this.username = '';
+    //       this.email = '';
+    //       this.password = '';
+    //       this.agreeTerms = false;
+    //   }
+    // }
+
+
+    -->
+
+      
     </div>
-</div>
+  </div>
 
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'registrationPage',
+    
+    data() {
+        return {
+            username: '',
+            email: '',
+            password: '',
+            agreeTerms: false,
+            message: '',
+        };
+    },
+    mounted() {
+        (() => {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    },
+    methods: {
+        async registerUser(event) {
+            event.preventDefault(); // Prevent default form submission
 
+            if (!this.username || !this.email || !this.password || !this.agreeTerms) {
+                this.message = 'All fields are required!';
+                return;
+            }
+
+            try {
+                const response = await axios.post('http://localhost:3000/register', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                });
+                this.message = response.data;
+            } catch (error) {
+                this.message = error.response?.data || 'Registration failed';
+            }
+        }
+      }
 }
-</script>   
+</script>
+
 
 <style scoped> 
 #con { 
@@ -119,6 +214,12 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
     gap: 15px;
+}
+
+@media screen and (max-width: 750px) {
+  .img { 
+    display: none; 
+  }
 }
 
 </style>
