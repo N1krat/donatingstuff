@@ -9,13 +9,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
-        </li>
-      </ul>
-    </div>
+    
   </div>
 </nav>
 
@@ -56,7 +50,7 @@
       </form>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -65,8 +59,9 @@
             <div class="modal-body">
               <p v-if="message">{{ message }}</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" >
               <router-link to="/dashboard" class="btn btn-primary" data-bs-dismiss="modal" @click="$router.push('/dashboard')">Go to Dashboard</router-link>
+              
             </div>
           </div>
         </div>
@@ -94,7 +89,7 @@ import axios from 'axios';
 
 export default {
     name: 'registrationPage',
-    
+
     data() {
         return {
             username: '',
