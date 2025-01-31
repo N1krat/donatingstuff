@@ -1,6 +1,6 @@
 # donatingstuff
 _INFO:_
-A simple web page using vue and Bootstrap-Vue for practice and learning some UI/UX and Vue ☕
+A simple web page using vue and Bootstrap-Vue for practice and learning some UI/UX and VUE.☕
 
 _TODO:_
 * Create a simple UI using Figma ✅
@@ -12,3 +12,8 @@ _TODO:_
 * Create the donation page ⚒️
 * Create the about page ⚒️
 
+_Functionality_: 
+  * User can register an account on the registration page
+  * The registration info such as email, username and password is stored in a database using SQLite
+  * Each user will have a custom dashboard
+    
