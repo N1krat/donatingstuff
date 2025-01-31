@@ -41,6 +41,8 @@ app.post('/register', (req, res) => {
                 return res.status(500).send('Database error');
             }
             res.status(201).send('User registered successfully');
+            console.log('User registered successfully');
+            
         }
     );
 });
