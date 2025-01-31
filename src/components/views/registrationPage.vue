@@ -19,7 +19,7 @@
       <img :src="require('@/assets/loli.png')" />
     </div>
     <div class="forms"> 
-      <h3>Registration</h3>
+      <h3 style="color: white">Registration</h3>
       <form @submit.prevent="registerUser" class="needs-validation" novalidate>
         <div class="form-floating mb-3">
           <input type="text" v-model="username" class="form-control" id="validationCustom01" placeholder="n1krat" required>
@@ -46,7 +46,8 @@
         <div class="col-12">
           <button type="submit" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Submit</button>
         </div>
-  
+        <br>
+        <router-link style="color: white" to="/login">Or Log In</router-link>
       </form>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
