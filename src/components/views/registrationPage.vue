@@ -6,15 +6,13 @@
       <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
       Navbar
     </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    
     
   </div>
 </nav>
 
 <!-- main page -->
-<div class="container mx-5 mx-auto" id="con">  
+<div class="container" id="con">  
     <div class="img"> 
       <img :src="require('@/assets/loli.png')" />
     </div>
@@ -62,7 +60,6 @@
             </div>
             <div class="modal-footer" >
               <router-link to="/dashboard" class="btn btn-primary" data-bs-dismiss="modal" @click="$router.push('/dashboard')">Go to Dashboard</router-link>
-              
             </div>
           </div>
         </div>
@@ -79,7 +76,14 @@
 
     -->
 
+
+    <!-- main page -->
       
+
+
+
+
+
     </div>
   </div>
 
@@ -215,6 +219,12 @@ export default {
 @media screen and (max-width: 750px) {
   .img { 
     display: none; 
+  }
+
+  #con { 
+    padding: 25px;
+    margin: 20px;
+    margin-right: 20px;
   }
 }
 
