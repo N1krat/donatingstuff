@@ -10,7 +10,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" style="gap: 20px;">
+          <li style="margin-top: 10px">
+            <h5>{{ user.username }}</h5>
+          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/">Log Out</router-link>
           </li>
@@ -20,7 +23,25 @@
   </nav>
 
   <!-- main page -->
-  <h2 style="margin: 200px;">Velcome, {{ user.username }}</h2>
+  <div class="d-flex">
+    <nav class="nav flex-column p-3" style="width: 155px; height: 100vh; background-color: #56638A; border-radius: 6px;" >
+        <router-link class="nav-link" :to="`/dashboard/${user.username}`" exact-active-class="active">Dashboard</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/donations`" exact-active-class="active">My Donations</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/subscriptions`" exact-active-class="active">Subscriptions</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/payouts`" exact-active-class="active">My Payouts</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/stats`" exact-active-class="active">Statistics</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/settings`" exact-active-class="active">Settings</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/widgets`" exact-active-class="active">Widgets</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/news`" exact-active-class="active">News</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/help`" exact-active-class="active">Help</router-link>
+    </nav>
+
+
+    <div class="p-4">
+        <router-view></router-view>
+    </div>
+</div>
+
 </template>
 
 <script>
@@ -126,4 +147,12 @@ export default {
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;
 }
+
+.active { 
+  color: black;
+  background-color: rgb(190, 190, 190); 
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
 </style>
