@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="/registration">Registration</router-link>
+            <router-link class="nav-link" to="/">Log Out</router-link>
           </li>
         </ul>
       </div>
@@ -20,7 +20,7 @@
   </nav>
 
   <!-- main page -->
-  <h2>Welcome, {{ user.username }}</h2>
+  <h2 style="margin: 200px;">Velcome, {{ user.username }}</h2>
 </template>
 
 <script>

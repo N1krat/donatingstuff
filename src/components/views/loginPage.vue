@@ -10,7 +10,7 @@
   </nav>
   
   <!-- main page -->
-  <div class="container mx-5 mx-auto" id="con">  
+  <div class="container" id="con">  
       <div class="img"> 
         <img :src="require('@/assets/loli.png')" />
       </div>
@@ -167,6 +167,12 @@
   @media screen and (max-width: 750px) {
     .img { 
       display: none; 
+    }
+
+    #con { 
+      padding: 25px;
+      margin: 20px;
+      margin-right: 20px;
     }
   }
   </style>

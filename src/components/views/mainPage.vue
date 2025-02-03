@@ -19,10 +19,6 @@
           <router-link class="nav-link" to="/login">Log In</router-link>
         </li>
         
-
-        <li class="nav-item">
-          <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
-        </li>
       </ul>
     </div>
   </div>
