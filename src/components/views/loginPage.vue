@@ -83,7 +83,7 @@
                   localStorage.setItem('token', token);
                   console.log('Login successful:', user);
                   this.message = '';  // Clear any previous error messages
-                  this.$router.push('/dashboard');
+                  this.$router.push('/dashboard/' + username);
               } catch (error) {
                   this.message = error.response ? error.response.data : 'Log in failed';
                   console.log(error.response ? error.response.data : 'Log in failed');
