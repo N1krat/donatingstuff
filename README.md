@@ -9,7 +9,7 @@ _TODO:_
 * Create and integrate the vue-router https://router.vuejs.org/ ✅
 * Create the registration page ✅
 * Create the login page ✅
-* Create the dashboard page ⚒️
+* Create the dashboard page ✅
 * Create the donation page ⚒️
 * Create the about page ⚒️
 
