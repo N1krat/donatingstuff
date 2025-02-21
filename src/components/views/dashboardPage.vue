@@ -4,15 +4,21 @@
     <div class="container-fluid" id="navbar">
       <router-link class="navbar-brand" to="/" style="color: white;">
         <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        Navbar
+        DonatingStuff
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav" style="gap: 20px;">
+          <li style="margin-top: 13px">
+            <h5>Balance: $20002.34</h5>
+          </li>
+          <li style="margin-top: 5px">
+            <img :src="require('@/assets/loli.png')" alt="Logo" width="40" height="40" class="d-inline-block align-text-top rounded-circle bg-light ms-auto">
+          </li>
           <li style="margin-top: 10px">
-            <h5>{{ user.username }}</h5>
+            <h5 style="display: flex; justify-content: flex-end;">{{ user.username }}</h5>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/">Log Out</router-link>
@@ -24,24 +30,23 @@
 
   <!-- main page -->
   <div class="d-flex">
-    <nav class="nav flex-column p-3" style="width: 155px; height: 100vh; background-color: #56638A; border-radius: 6px;" >
+    <nav class="nav flex-column p-3" style="width: 200px; height: 130vh; background-color: #56638A; border-radius: 6px;" >
         <router-link class="nav-link" :to="`/dashboard/${user.username}`" exact-active-class="active">Dashboard</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/donations`" exact-active-class="active">My Donations</router-link>
-        <router-link class="nav-link" :to="`/dashboard/${user.username}/subscriptions`" exact-active-class="active">Subscriptions</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/payouts`" exact-active-class="active">My Payouts</router-link>
-        <router-link class="nav-link" :to="`/dashboard/${user.username}/stats`" exact-active-class="active">Statistics</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/settings`" exact-active-class="active">Settings</router-link>
-        <router-link class="nav-link" :to="`/dashboard/${user.username}/widgets`" exact-active-class="active">Widgets</router-link>
-        <router-link class="nav-link" :to="`/dashboard/${user.username}/news`" exact-active-class="active">News</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/help`" exact-active-class="active">Help</router-link>
     </nav>
 
 
-    <div class="p-4">
+    <div class="p-2 mx-3">
         <router-view></router-view>
     </div>
 </div>
 
+<div class="footer">
+  FOOTER
+</div>
 </template>
 
 <script>
@@ -155,4 +160,20 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
+
+.footer { 
+  background-color: #2c3e50;
+  margin: 0px; 
+  padding: 0px; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+@media (max-width: 600px)  { 
+.nav { 
+  display: none;
+}
+}
 </style>

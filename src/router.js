@@ -2,17 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import mainPage from './components/views/mainPage.vue'
 import registrationPage from './components/views/registrationPage.vue'
+import donationPage from './components/views/donationPage.vue'
 import loginPage from './components/views/loginPage.vue'
 import dashboardPage from './components/views/dashboardPage.vue'
 import dashboardMain from './components/views/dashboard/dashboardMain.vue'
-import dashboardDonations from './components/views/dashboard/dashboardDonations.vue'
-import dashboardSubscriptions from './components/views/dashboard/dashboardSubscriptions.vue'
-import dashboardStats from './components/views/dashboard/dashboardStats.vue'
 import dashboardPayouts from './components/views/dashboard/dashboardPayOuts.vue'
 import dashboardSettings from './components/views/dashboard/dashboardSettings.vue'
-import dashboardWidgets from './components/views/dashboard/dashboardWidgets.vue'
-import dashboardNews from './components/views/dashboard/dashboardNews.vue'
 import dashboardHelp from './components/views/dashboard/dashboardHelp.vue'
+import dashboardDonations from './components/views/dashboard/dashboardDonations.vue'
 
 
 const routes = [
@@ -20,6 +17,24 @@ const routes = [
         path: '/',
         name: 'mainPage',
         component: mainPage,
+    },
+    { 
+        path: '/donation/:username', 
+        name: 'donationPage',
+        component: donationPage, 
+        beforeEnter: async (to, from, next) => {
+            try {
+                const response = await fetch(`http://localhost:3000/donations?username=${to.params.username}`);
+    
+                if (response.ok) {
+                    next();
+                } else {
+                    next('/'); // Redirect if user does not exist
+                }
+            } catch (error) {
+                next('/'); // Redirect on API error
+            }
+        }
     },
     { 
         path: '/registration', 
@@ -38,42 +53,27 @@ const routes = [
         children: [
             { 
                 path: '',
+                name: 'dashboardMain',
                 component: dashboardMain
-            }, 
+            },   
             { 
-                path: 'dashboardMain',
-                component: dashboardMain
-            }, 
-            {
                 path: 'donations',
+                name: 'dashboardDonations',
                 component: dashboardDonations
-            }, 
-            { 
-                path: 'subscriptions',
-                component: dashboardSubscriptions
             }, 
             {
                 path: 'payouts',
+                name: 'dashboardPayouts',
                 component: dashboardPayouts
             }, 
             {
-                path: 'stats',
-                component: dashboardStats
-            }, 
-            {
                 path: 'settings',
+                name: 'dashboardSettings',
                 component: dashboardSettings
-            }, 
-            {
-                path: 'widgets',
-                component: dashboardWidgets
-            }, 
-            {
-                path: 'news',
-                component: dashboardNews
-            }, 
+            },
             {
                 path: 'help',
+                name: 'dashboardHelp',
                 component: dashboardHelp
             }
         ]

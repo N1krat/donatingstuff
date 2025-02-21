@@ -4,7 +4,7 @@
   <div class="container-fluid" id="navbar">
     <router-link class="navbar-brand" to="/" style="color: white;">
       <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-      Navbar
+      DonatingStuff
     </router-link>
     
     
