@@ -4,7 +4,7 @@
     <div class="container-fluid" id="navbar">
       <router-link class="navbar-brand" to="/" style="color: white;">
         <img :src="require('@/assets/loli.png')" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        Navbar
+        DonatingStuff
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,6 +32,7 @@
   <div class="d-flex">
     <nav class="nav flex-column p-3" style="width: 200px; height: 130vh; background-color: #56638A; border-radius: 6px;" >
         <router-link class="nav-link" :to="`/dashboard/${user.username}`" exact-active-class="active">Dashboard</router-link>
+        <router-link class="nav-link" :to="`/dashboard/${user.username}/donations`" exact-active-class="active">My Donations</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/payouts`" exact-active-class="active">My Payouts</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/settings`" exact-active-class="active">Settings</router-link>
         <router-link class="nav-link" :to="`/dashboard/${user.username}/help`" exact-active-class="active">Help</router-link>

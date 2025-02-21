@@ -108,5 +108,27 @@ app.get('/dashboard', (req, res) => {
     });
 });
 
+app.get('/donations', (req, res) => {
+  const username = req.query.username; // Get username from query parameters
+
+  if (!username) {
+      return res.status(400).json({ error: 'Username is required' });
+  }
+
+  const sql = 'SELECT * FROM users WHERE username = ?';
+  db.get(sql, [username], (err, user) => {
+      if (err) {
+          return res.status(500).json({ error: 'Database error' });
+      }
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Respond with the user data or a confirmation message
+      res.status(200).json({ message: `User ${username} exists, donation page can be loaded.`, user });
+  });
+});
+
+
 // Start the server
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));

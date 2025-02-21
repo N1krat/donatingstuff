@@ -57,8 +57,7 @@ export default {
   background-color: #2196F3;
   padding: 10px;
   width: 87vw;
-  border-radius: 12px;
-  
+  border-radius: 12px; 
  
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
