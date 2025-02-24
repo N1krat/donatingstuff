@@ -10,7 +10,7 @@
   </nav>
   
   <!-- main page -->
-  <div class="container" id="con">  
+  <div class="container" id="con" style="color: black">  
       <div class="img"> 
         <img :src="require('@/assets/loli.png')" />
       </div>
