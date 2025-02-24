@@ -176,17 +176,39 @@ app.post('/donations', (req, res) => {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    const sql = `INSERT INTO donations (sender, receiver, amount, message) VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO donations (sender, receiver, amount, message) VALUES (?, ?, ?, ?);`;
+
     db.run(sql, [sender, receiver, amount, message], function (err) {
         if (err) {
             console.error("SQL Error:", err);
             return res.status(500).json({ error: "Database error" });
         }
 
-        // Only send one response after insertion
-        return res.status(201).json({ message: "Donation saved successfully", id: this.lastID });
+        // Get the donation ID
+        const donationId = this.lastID;
+        const balance = amount;
+
+        const update = `INSERT INTO main.balance (user_id, balance) 
+                        VALUES ((SELECT username FROM users WHERE username = ?), ?) 
+                        ON CONFLICT(user_id) DO UPDATE 
+                        SET balance = balance + excluded.balance;`;
+        
+        db.run(update, [receiver, balance], function (err) { 
+            if (err) {
+                console.error("SQL Error:", err);
+                return res.status(500).json({ error: "Database error" });
+            }
+
+            // **Send the final response only once, after both queries succeed**
+            return res.status(201).json({ 
+                message: "Donation saved and balance updated successfully", 
+                donationId: donationId, 
+                balanceUpdateId: this.lastID 
+            });
+        });
     });
 });
+
 
 
 
