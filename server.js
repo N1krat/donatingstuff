@@ -15,12 +15,50 @@ const db = new sqlite3.Database('./database.db', (err) => {
 });
 
 // Create users table if it doesn't exist
-db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
-)`);
+db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    );`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS donations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sender TEXT NOT NULL,
+        receiver TEXT NOT NULL,
+        message TEXT NOT NULL,
+        amount INTEGER NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    );`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS payouts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sender TEXT NOT NULL,
+        receiver TEXT NOT NULL,
+        amount INTEGER NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        status INTEGER NOT NULL
+    );`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS balance ( 
+        user_id INTEGER NOT NULL UNIQUE,
+        balance INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    );`);
+
+    db.run(`
+    CREATE TABLE IF NOT EXISTS notifications (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        message TEXT NOT NULL,
+        status TEXT CHECK(status IN ('unread', 'read')) NOT NULL DEFAULT 'unread',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    );
+    `)
+});
+
 
 // Register endpoint
 app.post('/register', (req, res) => {
@@ -108,26 +146,50 @@ app.get('/dashboard', (req, res) => {
     });
 });
 
+
+// GET donations by sender or receiver
 app.get('/donations', (req, res) => {
-  const username = req.query.username; // Get username from query parameters
+    const username = req.query.username;
+    console.log("Received request for username:", username); // Debugging
 
-  if (!username) {
-      return res.status(400).json({ error: 'Username is required' });
-  }
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
 
-  const sql = 'SELECT * FROM users WHERE username = ?';
-  db.get(sql, [username], (err, user) => {
-      if (err) {
-          return res.status(500).json({ error: 'Database error' });
-      }
-      if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-      }
+    const sql = 'SELECT * FROM donations WHERE sender = ? OR receiver = ?';
+    db.all(sql, [username, username], (err, rows) => {
+        if (err) {
+            console.error('SQL Error:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
 
-      // Respond with the user data or a confirmation message
-      res.status(200).json({ message: `User ${username} exists, donation page can be loaded.`, user });
-  });
+        console.log("Fetched donations:", rows); // Debugging
+        return res.status(200).json(rows); // Send donations data to frontend
+    });
 });
+
+// POST donation (Submit donation)
+app.post('/donations', (req, res) => {
+    const { sender, receiver, amount, message } = req.body;
+
+    if (!sender || !receiver || !amount || !message) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const sql = `INSERT INTO donations (sender, receiver, amount, message) VALUES (?, ?, ?, ?)`;
+    db.run(sql, [sender, receiver, amount, message], function (err) {
+        if (err) {
+            console.error("SQL Error:", err);
+            return res.status(500).json({ error: "Database error" });
+        }
+
+        // Only send one response after insertion
+        return res.status(201).json({ message: "Donation saved successfully", id: this.lastID });
+    });
+});
+
+
+
 
 
 // Start the server

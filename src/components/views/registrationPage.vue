@@ -12,7 +12,7 @@
 </nav>
 
 <!-- main page -->
-<div class="container" id="con">  
+<div class="container" id="con"  style="color: black">  
     <div class="img"> 
       <img :src="require('@/assets/loli.png')" />
     </div>
@@ -20,17 +20,17 @@
       <h3 style="color: white">Registration</h3>
       <form @submit.prevent="registerUser" class="needs-validation" novalidate>
         <div class="form-floating mb-3">
-          <input type="text" v-model="username" class="form-control" id="validationCustom01" placeholder="n1krat" required>
+          <input type="text" v-model="username" class="form-control" id="validationCustom01 floatingInput" placeholder="username" required>
           <label for="floatingInput">Username</label>
           <div class="invalid-feedback">You must enter data before submitting.</div>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" v-model="email" class="form-control" id="validationCustom02" placeholder="name@example.com" required>
+          <input type="email" v-model="email" class="form-control" id="validationCustom02 floatingInput" placeholder="name@example.com" required>
           <label for="floatingInput">Email address</label>
           <div class="invalid-feedback">You must enter data before submitting.</div>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" v-model="password" class="form-control" id="validationCustom03" placeholder="Password" required>
+          <input type="password" v-model="password" class="form-control" id="validationCustom03" placeholder="password" required>
           <label for="floatingPassword">Password</label>
           <div class="invalid-feedback">You must enter data before submitting.</div>
         </div>

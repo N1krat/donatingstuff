@@ -75,9 +75,9 @@
     </div>
 
     <!-- Card4 -->
-    <div class="container text-center mt-4" id="card4">
-  <h1 class="mb-3 text-light">How It Works</h1>
-  <p class="text-light">Take a look at service's basic features.</p>
+  <div class="con text-center mt-4" id="card4">
+    <h1 class="mb-3 text-light">How It Works</h1>
+    <p class="text-light">Take a look at service's basic features.</p>
 
   <!-- Feature buttons -->
  <div class="d-flex justify-content-center mb-4">
@@ -99,9 +99,9 @@
         <div class="card bg-dark text-center text-light border-0">
           <img
             :src="currentCardData.image"
-            class="card-img-top rounded-circle mx-auto mt-3"
+            class="card-img-top rounded-circle mx-auto mt-3 bg-light"
             alt="Feature Image"
-            style="width: 100px;"
+            style="width: 150px; height: 150px;"
           />
           <div class="card-body">
             <h5 class="card-title text-warning">{{ currentCardData.title }}</h5>
@@ -162,7 +162,7 @@ export default {
         { id: "goals", label: "DONATION GOALS" },
         { id: "poll", label: "POLL" },
         { id: "media", label: "MEDIA" },
-      ],
+      ], 
       cardData: {
         donations: {
           image: require("@/assets/loli.png"),
@@ -241,15 +241,6 @@ a {
   color: white;
   text-decoration: none;
 }
-.body { 
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
 
 /* navbar css */
 #navbar { 
