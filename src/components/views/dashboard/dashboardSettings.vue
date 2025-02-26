@@ -1,14 +1,14 @@
 <template>
-    <div class="container m-2 p-3">
+    <div class="con m-2 p-3">
         <h3>Settings: </h3>
 
-        <div class="form-check form-switch">
+        <div class="form-check form-switch mb-4">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
             <label class="form-check-label" for="flexSwitchCheckDefault">Dark Theme</label>
         </div>
-
+        
         <h5>Change Language:</h5>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select mb-2" aria-label="Default select example">
             <option selected>English</option>
             <option value="1">Russian</option>
             <option value="2">German</option>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped>  
-.container { 
+.con { 
     background-color: #d3eafc;
     justify-content: center;
     align-items: center;

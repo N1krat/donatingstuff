@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="con">
         <h1>Dashboard Help</h1>
         <h3>There is no help here >:( </h3>
 
@@ -14,5 +14,9 @@ export default {
 </script>
 
 <style scoped>  
-
+.con { 
+    background-color: #d3eafc;
+    padding: 10px;
+    border-radius: 10px;
+}
 </style>
