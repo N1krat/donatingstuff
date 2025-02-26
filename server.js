@@ -114,7 +114,7 @@ app.post('/login', (req, res) => {
 });
   
 
-// Dashboard endpoint
+
 app.get('/dashboard', (req, res) => {
     const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1]; // Extract token
     
@@ -129,32 +129,48 @@ app.get('/dashboard', (req, res) => {
         }
 
         const userId = decoded.id;
-
-        // Query the user data based on the decoded user ID
-        db.get('SELECT * FROM users WHERE id = ?', [userId], (err, row) => {
+        const id = decoded.id; 
+            
+        // get the data for the specific usr
+        db.get('SELECT * FROM users WHERE id = ?; ', [userId], (err, user) => {
             if (err) {
                 console.error('SQL Error:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
             
-            if (!row) {
+            if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
+
+            console.log("user:", user);
+            console.log("username:", user.username);
+            
+            db.get('SELECT balance FROM main.balance WHERE user_id = ?', [user.username], (err, balanceRow) => { 
+                if (err) { 
+                    console.error('sql err: ', err); 
+                    return res.status(500).json({error: 'internal err'});
+                }
+                console.log('balance:', balanceRow);
+                const balance = balanceRow ? balanceRow.balance : 0; 
+
+                res.status(200).json({ user, balance }); // Send data to front
+            }); 
       
-            res.status(200).json(row); // Send user data to frontend
+            
         });
     });
 });
 
 
-// GET donations by sender or receiver
+// GET donatiki by sendur or recever
 app.get('/donations', (req, res) => {
     const username = req.query.username;
-    console.log("Received request for username:", username); // Debugging
+    //console.log("Received request for username:", username); // debug
 
     if (!username) {
         return res.status(400).json({ error: 'Username is required' });
     }
+
 
     const sql = 'SELECT * FROM donations WHERE sender = ? OR receiver = ?';
     db.all(sql, [username, username], (err, rows) => {
@@ -176,18 +192,57 @@ app.post('/donations', (req, res) => {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    const sql = `INSERT INTO donations (sender, receiver, amount, message) VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO donations (sender, receiver, amount, message) VALUES (?, ?, ?, ?);`;
+
     db.run(sql, [sender, receiver, amount, message], function (err) {
         if (err) {
             console.error("SQL Error:", err);
             return res.status(500).json({ error: "Database error" });
         }
 
-        // Only send one response after insertion
-        return res.status(201).json({ message: "Donation saved successfully", id: this.lastID });
+        // Get the donation ID
+        const donationId = this.lastID;
+        const balance = amount;
+
+        const update = `INSERT INTO main.balance (user_id, balance) 
+                        VALUES ((SELECT username FROM users WHERE username = ?), ?) 
+                        ON CONFLICT(user_id) DO UPDATE 
+                        SET balance = balance + excluded.balance;`;
+        
+        db.run(update, [receiver, balance], function (err) { 
+            if (err) {
+                console.error("SQL Error:", err);
+                return res.status(500).json({ error: "Database error" });
+            }
+
+            // send back resp if succes 
+            return res.status(201).json({ 
+                message: "Donation saved and balance updated successfully", 
+                donationId: donationId, 
+                balanceUpdateId: this.lastID 
+            });
+        });
     });
 });
 
+// take the info abt donations to dashbaordDonations page 
+app.get('/dashboardDonations', (req, res) => { 
+    const username = req.query.username;
+    const { sender, message, timestamp, amount } = req.body;
+
+    const sql = `select donations.sender, donations.message, donations.timestamp from donations where receiver = 'Bogdan'; `; 
+
+    db.get(sql, [sender, message, amount, timestamp], (err) => {
+        if (err) { 
+            console.error("SQL EROOR!: ", err); 
+            return res.status(500).json({ error: "Database errir"}); 
+        }
+
+        console.log("Fetched donations:", rows);
+        return res.status(200).json(rows);
+
+    })
+}); 
 
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container m-2 p-3">
+    <div class="con m-2 p-3">
         <h3>Your Payouts: </h3>
         <button class="btn btn-primary mb-3"  data-bs-toggle="modal" data-bs-target="#exampleModal">Create a payout</button>
 
@@ -127,7 +127,7 @@ export default {
 </script>
 
 <style scoped>  
-.container { 
+.con { 
   background-color: #d3eafc;
   justify-content: center;
   align-items: center;

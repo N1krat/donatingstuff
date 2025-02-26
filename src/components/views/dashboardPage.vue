@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav" style="gap: 20px;">
           <li style="margin-top: 13px">
-            <h5>Balance: $20002.34</h5>
+            <h5>Balance: {{ user.balance }} </h5>
           </li>
           <li style="margin-top: 5px">
             <img :src="require('@/assets/loli.png')" alt="Logo" width="40" height="40" class="d-inline-block align-text-top rounded-circle bg-light ms-auto">
@@ -58,6 +58,7 @@ export default {
     return {
       user: {}, // Make sure user is reactive
       errorMessage: '', // To store error messages
+      balance: {} // tipa balncu
     };
   },
   created() {
@@ -93,7 +94,7 @@ export default {
           // Handle specific HTTP status code errors
           if (error.response.status === 401) {
             console.log('Unauthorized: Invalid token');
-            this.$router.push('/login');
+            this.$router.push('/login');44
           } else {
             console.log('Server error:', error.response.data);
             this.errorMessage = 'An error occurred while fetching your data. Please try again later.';
