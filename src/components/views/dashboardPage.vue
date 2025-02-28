@@ -56,9 +56,9 @@ export default {
   name: 'dashboardPage',
   data() {
     return {
-      user: {}, // Make sure user is reactive
+      user: {}, // tipa user???
       errorMessage: '', // To store error messages
-      balance: {} // tipa balncu
+      balance: {},  // tipa balncu
     };
   },
   created() {
@@ -109,6 +109,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style scoped>

@@ -144,6 +144,8 @@ app.get('/dashboard', (req, res) => {
 
             console.log("user:", user);
             console.log("username:", user.username);
+
+            const username = user.username;
             
             db.get('SELECT balance FROM main.balance WHERE user_id = ?', [user.username], (err, balanceRow) => { 
                 if (err) { 
@@ -153,7 +155,7 @@ app.get('/dashboard', (req, res) => {
                 console.log('balance:', balanceRow);
                 const balance = balanceRow ? balanceRow.balance : 0; 
 
-                res.status(200).json({ user, balance }); // Send data to front
+                res.status(200).json({ user, balance, username }); // Send data to front
             }); 
       
             
