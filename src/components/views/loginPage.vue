@@ -64,8 +64,10 @@ export default {
           form.classList.add('was-validated');
         }, false);
       });
+      console.log('aboba'); 
     })();
   },
+  
   methods: {
     async loginUser() {
       const { username, password } = this;
@@ -76,11 +78,11 @@ export default {
         console.log('All fields are required!');
         return;
       }
-
+      console.log('aboba'); 
       try {
         const response = await axios.post(`http://localhost:8080/login`, { username, password });
         const { token, user } = response.data;
-
+        console.log('aboba'); 
         // Save token to localStorage
         localStorage.setItem('token', token);
         console.log('Login successful:', user);
