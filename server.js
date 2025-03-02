@@ -7,7 +7,6 @@ const path = require('path');
 
 const app = express();
 app.use(cors({
-
     origin: 'https://donatingstuff-production.up.railway.app',
 }));
 app.use(bodyParser.json());
