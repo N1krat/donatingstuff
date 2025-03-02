@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+
+    origin: 'https://donatingstuff-production.up.railway.app',
+}));
 app.use(bodyParser.json());
 
 // Connect to SQLite database
