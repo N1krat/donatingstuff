@@ -69,7 +69,7 @@ export default {
   methods: {
     async loginUser() {
       const { username, password } = this;
-      const apiUrl = process.env.VUE_APP_API_URL;
+      //const apiUrl = process.env.VUE_APP_API_URL;
 
       if (!username || !password) {
         this.message = 'All fields are required!';  
@@ -78,7 +78,7 @@ export default {
       }
 
       try {
-        const response = await axios.post(`${apiUrl}/login`, { username, password });
+        const response = await axios.post(`http://localhost:3000/login`, { username, password });
         const { token, user } = response.data;
 
         // Save token to localStorage
