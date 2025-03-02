@@ -247,7 +247,13 @@ app.get('/dashboardDonations', (req, res) => {
 }); 
 
 
+// corectyl serve page
+app.use(express.static(path.join(__dirname, "dist")));
 
+// Handle SPA routing (so Vue can handle client-side routes)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // Start the server
 const port = process.env.PORT || 3000;
