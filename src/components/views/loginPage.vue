@@ -78,7 +78,7 @@ export default {
       }
 
       try {
-        const response = await axios.post(`http://nodejs.railway.internal/login`, { username, password });
+        const response = await axios.post(`http://nodejs-production-14b0.up.railway.app/login`, { username, password });
         const { token, user } = response.data;
 
         // Save token to localStorage
