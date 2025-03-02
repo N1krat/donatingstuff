@@ -77,7 +77,7 @@
               }
   
               try {
-                  const response = await axios.post('https://donatingstuff-production.up.railway.app//login', { username, password });
+                  const response = await axios.post('https://donatingstuff-production.up.railway.app/login', { username, password });
                   const { token, user } = response.data;
 
                   localStorage.setItem('token', token);
