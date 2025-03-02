@@ -12,4 +12,4 @@ app.get('/data', (req, res) => {
     });
 });
 
-app.listen(3000, () => console.log('API running on http://localhost:8080'));
+app.listen(8080, () => console.log('API running on http://localhost:8080'));
