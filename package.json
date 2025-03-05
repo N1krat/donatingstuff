@@ -17,13 +17,16 @@
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
     "bootstrap": "5",
+    "chart.js": "^4.4.8",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "postcss": "^8.5.1",
     "sqlite3": "^5.1.7",
+    "utils": "^0.3.1",
     "vue": "^3.5.13",
+    "vue-chartjs": "^5.3.2",
     "vue-router": "4"
   },
   "devDependencies": {

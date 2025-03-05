@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 
 const app = express();
-app.use(cors({
-    origin: 'https://donatingstuff-production.up.railway.app',
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to SQLite database
@@ -41,7 +39,7 @@ db.serialize(() => {
         receiver TEXT NOT NULL,
         amount INTEGER NOT NULL,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        status INTEGER NOT NULL
+        status INTEGER NOT NULL DEFAULT 0
     );`);
 
     db.run(`CREATE TABLE IF NOT EXISTS balance ( 
@@ -73,18 +71,28 @@ app.post('/register', (req, res) => {
     db.run(
         `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`,
         [username, email, password],
-        (err) => {
+        function (err) {
             if (err) {
                 if (err.message.includes('UNIQUE constraint')) {
                     return res.status(400).send('Username or email already exists');
                 }
                 return res.status(500).send('Database error');
             }
+
+            // Create balance entry
+            const userId = this.lastID;
+            db.run(`INSERT INTO balance (user_id, balance) VALUES (?, 0)`, [userId], (err) => {
+                if (err) {
+                    console.error('Balance insert error:', err);
+                }
+            });
+
             res.status(201).send('User registered successfully');
             console.log('User registered successfully');
         }
     );
 });
+
 
 // Login endpoint
 app.post('/login', (req, res) => {
@@ -130,7 +138,6 @@ app.get('/dashboard', (req, res) => {
         }
 
         const userId = decoded.id;
-
         // Get user data
         db.get('SELECT * FROM users WHERE id = ?;', [userId], (err, user) => {
             if (err) {
@@ -144,7 +151,7 @@ app.get('/dashboard', (req, res) => {
 
             const username = user.username;
 
-            db.get('SELECT balance FROM balance WHERE user_id = ?', [userId], (err, balanceRow) => {
+            db.get('SELECT balance FROM balance WHERE user_id = ?', [username], (err, balanceRow) => {
                 if (err) {
                     console.error('SQL Error:', err);
                     return res.status(500).json({ error: 'Internal Server Error' });
@@ -195,12 +202,10 @@ app.post('/donations', (req, res) => {
         const donationId = this.lastID;
         const balance = amount;
 
-        const update = `INSERT INTO balance (user_id, balance) 
-                        VALUES ((SELECT id FROM users WHERE username = ?), ?) 
-                        ON CONFLICT(user_id) DO UPDATE 
-                        SET balance = balance + excluded.balance;`;
+        const update = `UPDATE balance SET balance = balance + ? 
+                        WHERE user_id = ?`;
 
-        db.run(update, [receiver, balance], function (err) {
+        db.run(update, [balance, receiver], function (err) {
             if (err) {
                 console.error('SQL Error:', err);
                 return res.status(500).json({ error: 'Database error' });
@@ -208,40 +213,124 @@ app.post('/donations', (req, res) => {
 
             return res.status(201).json({
                 message: 'Donation saved and balance updated successfully',
-                donationId: donationId,
-                balanceUpdateId: this.lastID
+                donationId: donationId
             });
         });
     });
 });
 
-// Get donations for dashboard
+// Get donations for dashboard donation page
 app.get('/dashboardDonations', (req, res) => {
-    const username = req.query.username;
+    const username = req.query.username; 
+    console.log("Received request for username:", username); // Debugging
 
     if (!username) {
         return res.status(400).json({ error: 'Username is required' });
     }
 
-    const sql = 'SELECT sender, message, timestamp, amount FROM donations WHERE receiver = ?;';
+    const sql = 'SELECT sender, message, timestamp, amount FROM main.donations WHERE receiver = ?;';
     db.all(sql, [username], (err, rows) => {
         if (err) {
             console.error('SQL Error:', err);
             return res.status(500).json({ error: 'Database error' });
         }
 
-        res.status(200).json(rows); // Send donation data for dashboard
+        if (!rows.length) {
+            return res.status(404).json({ error: 'No donations found' });
+        }
+
+        console.log("Sending response:", rows); // Debugging
+        res.status(200).json(rows);
     });
 });
 
-// Serve Vue.js app
-app.use(express.static(path.join(__dirname, 'dist')));
+// save payouts into the database from the frontend
+app.post('/payouts', (req, res) => {
+    console.log("Received request body:", req.body); // Debugging
 
-// Handle SPA routing (so Vue can handle client-side routes)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    const { sender, amount, receiver } = req.body;
+
+    if (!sender || !amount || !receiver) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const sql = 'INSERT INTO main.payouts (sender, amount, receiver, status, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP);';
+    const params = [sender, amount, receiver, 0];
+
+    db.run(sql, params, function(err) {
+        if (err) {
+            console.error('SQL Error:', err.message);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        console.log("Payout saved with ID:", this.lastID); // Debugging
+        res.status(201).json({
+            message: 'Payout saved successfully',
+            id: this.lastID
+        });
+
+        const update = 'UPDATE balance SET balance = balance - ? WHERE user_id = ?';
+        
+        db.run(update, [amount, sender], function(err) { 
+            if (err) {
+                console.error('SQL Error:', err.message);
+                return res.status(500).json({ error: 'Database error' });
+            }
+
+            console.log("Balance updated for sender:", sender); // dbug
+        }); 
+    });
 });
 
+
+// get payouts for dashboard payout page
+app.get('/dashboardPayouts', (req, res) => {
+    const username = req.query.username;
+    
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    const sql = 'SELECT id, sender, receiver, amount, timestamp, status FROM main.payouts WHERE sender = ?';
+    
+    db.all(sql, [username], (err, rows) => {
+        if (err) {
+            console.error('SQL Error:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        if (!rows.length) {
+            return res.status(404).json({ error: 'No payouts found' });
+        }
+
+        console.log("Sending payouts:", rows);
+        res.status(200).json(rows);
+    });
+});
+
+app.get('/donationsChart', (req, res) => {
+    const username = req.query.username;
+
+    if (!username) { 
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    const sql = 'SELECT timestamp, amount FROM main.donations WHERE receiver = ?';
+    db.all(sql, [username], (err, rows) => {
+        if (err) {
+            console.error('SQL Error:', err);
+            return res.status(500).json({ error: 'Failed to load donations data into the chart' });
+        }
+
+        if (!rows.length) {
+            return res.status(404).json({ error: 'No donations found' });
+        }
+
+        res.status(200).json(rows);
+    });
+})
+
 // Start the server
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
+

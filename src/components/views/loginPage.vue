@@ -16,7 +16,7 @@
     </div>
     <div class="forms"> 
       <h3 style="color: white">Log In</h3>
-      <form @submit.prevent="loginUser" class="needs-validation" novalidate>
+      <form @submit.prevent="loginUser" class="needs-validation" novalidate ref="loginForm">
         <div class="form-floating mb-3">
           <input type="text" v-model="username" class="form-control" id="validationCustom01" placeholder="n1krat" required>
           <label for="floatingInput">Username</label>
@@ -41,6 +41,7 @@
 <script>
 import axios from 'axios';
 
+
 export default {
   name: 'loginPage',
 
@@ -51,57 +52,51 @@ export default {
       message: '',
     };
   },
-  mounted() {
-    (() => {
-      'use strict';
-      const forms = document.querySelectorAll('.needs-validation');
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-      console.log('aboba'); 
-    })();
-  },
   
+  mounted() {
+    // Form validation (Vue-friendly)
+    const form = this.$refs.loginForm;
+    if (form) {
+      form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      });
+    }
+  },
+
   methods: {
     async loginUser() {
-      const { username, password } = this;
-      //const apiUrl = process.env.VUE_APP_API_URL;
-
-      if (!username || !password) {
-        this.message = 'All fields are required!';  
-        console.log('All fields are required!');
+      if (!this.username || !this.password) {
+        this.message = 'All fields are required!';
         return;
       }
-      console.log('aboba'); 
+
       try {
-        const response = await axios.post(`http://localhost:8080/login`, { username, password });
-        const { token, user } = response.data;
-        console.log('aboba'); 
-        // Save token to localStorage
+        const response = await axios.post('http://localhost:3000/login', {
+          username: this.username,
+          password: this.password
+        });
+
+        const { token, username } = response.data;
+        console.log(response.data);
         localStorage.setItem('token', token);
-        console.log('Login successful:', user);
 
-        // Redirect to the donation page (or dashboard)
-        this.$router.push('/donation');  // Make sure '/donation' is the correct route
+        // redirect to the specific dashboard of the user that loged in
+        this.$router.push(`/dashboard/${username}`);
 
-        this.message = '';  // Clear any previous error messages
+        this.message = ''; // Clear error messages
       } catch (error) {
         this.message = error.response ? error.response.data : 'Log in failed';
-        console.log(error.response ? error.response.data : 'Log in failed');
+      } finally {
+        this.username = '';
+        this.password = '';
       }
-
-      // Clear form fields
-      this.username = '';
-      this.password = '';
     },
   },
-}
+};
 </script>
 
 <style scoped> 
@@ -114,18 +109,10 @@ export default {
 
 #navbar { 
   background-color: #56638A;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 5px 20px 10px;
   color: white;
-  padding-bottom: 10px;
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
   border-radius: 5px;
-}
-
-#navbarNav {
-  justify-content: flex-end;
 }
 
 .navbar-brand:hover {
@@ -140,7 +127,6 @@ export default {
 }
 
 .nav-link:hover { 
-  box-shadow: #2c3e50;
   color: black;
   background-color: rgb(190, 190, 190); 
   transform: scale(1.1);
@@ -152,12 +138,10 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px 150px;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
   gap: 20px;
-  padding-left: 150px;
-  padding-right: 150px;
   margin-top: 20px;
 }
 
@@ -172,14 +156,7 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-  .img { 
-    display: none; 
-  }
-
-  #con { 
-    padding: 25px;
-    margin: 20px;
-    margin-right: 20px;
-  }
+  .img { display: none; }
+  #con { padding: 25px; margin: 20px; }
 }
 </style>

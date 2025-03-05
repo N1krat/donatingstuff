@@ -13,6 +13,7 @@
   </nav>
 
   <!-- Main Page -->
+  
   <div class="container d-flex flex-column p-3 mt-2"> 
     <div class="row">
       <img src="https://placehold.co/150x150" class="pfp col-2" alt="pfp">
@@ -65,10 +66,10 @@ onMounted(async () => {
   try {
     console.log("Fetching user data for:", route.params.username);
 
-    const response = await fetch(`http://localhost:3000/donations?username=${route.params.username}`);
-    if (!response.ok) throw new Error('User not found');
+    const response = await axios.get(`http://localhost:3000/donations?username=${route.params.username}`);
+    if (response.status !== 200) throw new Error('User not found');
 
-    const data = await response.json();
+    const data = response.data;
     console.log("Fetched Data:", data); // Check what the backend is sending
 
     if (!data || data.length === 0) {
@@ -91,7 +92,7 @@ const submitDonation = async () => {
     const donationData = {
       sender: sender.value || 'Anonymous',  // Default to 'Anonymous' if no sender
       receiver: receiver.value,  
-      amount: amount.value,
+      amount: Number(amount.value),
       message: message.value || 'No message',  // Default to 'No message' if no message
     };
 
